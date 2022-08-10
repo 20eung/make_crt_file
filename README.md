@@ -1,16 +1,70 @@
 # Make a CRT File
 
-## Create a .CSR File
+## Create a .key File (RSA Key)
+
+**~/.ssh $ openssl genrsa -aes256 -out cloud9-terraform.key 2048**
+```
+Generating RSA private key, 2048 bit long modulus (2 primes)
+....+++++
+.....................+++++
+e is 65537 (0x010001)
+Enter pass phrase for cloud9-terraform.key:
+Verifying - Enter pass phrase for cloud9-terraform.key:
+```
 
 **~/.ssh $ ls -l**
 ```
--rw-------  1 ubuntu ubuntu 3243 Aug  5 17:01 id_rsa
+-rw------- 1 ubuntu ubuntu    1766 Aug 10 15:48 cloud9-terraform.key
 ```
 
-**~/.ssh $ openssl req -new -key id_rsa -out request.csr**
+## Create a .conf File
+
+**~/.ssh $ vi cloud9-terraform.conf**
 ```
-Can't load /home/ubuntu/.rnd into RNG
-139711512363456:error:2406F079:random number generator:RAND_load_file:Cannot open file:../crypto/rand/randfile.c:88:Filename=/home/ubuntu/.rnd
+[ req ]
+default_bits                    = 2048
+default_md                      = sha1
+default_keyfile                 = cloud9-terraform.key
+distinguished_name              = req_distinguished_name
+extensions                      = v3_ca
+req_extensions                  = v3_ca
+ 
+[ v3_ca ]
+basicConstraints                = critical, CA:TRUE, pathlen:0
+subjectKeyIdentifier            = hash
+##authorityKeyIdentifier        = keyid:always, issuer:always
+keyUsage                        = keyCertSign, cRLSign
+nsCertType                      = sslCA, emailCA, objCA
+[req_distinguished_name ]
+countryName                     = Country Name (2 letter code)
+countryName_default             = KR
+countryName_min                 = 2
+countryName_max                 = 2
+
+# 회사명 입력
+organizationName                = Organization Name (eg, company)
+organizationName_default        = Organization
+ 
+# 부서 입력
+#organizationalUnitName         = Organizational Unit Name (eg, section)
+#organizationalUnitName_default = Organizational Unit
+ 
+# SSL 서비스할 domain 명 입력
+commonName                      = Common Name (eg, your name or your server's hostname)
+commonName_default              = Common Self Signed CA
+commonName_max                  = 64 
+```
+**~/.ssh $ ls -l**
+```
+-rw-rw-r-- 1 ubuntu ubuntu    1262 Aug 10 16:02 cloud9-terraform.conf
+-rw------- 1 ubuntu ubuntu    1766 Aug 10 15:48 cloud9-terraform.key
+```
+
+## Create a .CSR File
+
+**~/.ssh $ openssl req -new -key cloud9-terraform.key -out cloud9-terraform.csr -config cloud9-terraform.conf**
+```
+Enter pass phrase for cloud9-terraform.key:
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
@@ -18,29 +72,22 @@ There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
 If you enter '.', the field will be left blank.
 -----
-Country Name (2 letter code) [AU]:
-State or Province Name (full name) [Some-State]:
-Locality Name (eg, city) []:
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-Organizational Unit Name (eg, section) []:
-Common Name (e.g. server FQDN or YOUR name) []:
-Email Address []:
-
-Please enter the following 'extra' attributes
-to be sent with your certificate request
-A challenge password []:
-An optional company name []:
+Country Name (2 letter code) [KR]:
+Organization Name (eg, company) [Organization]:
+Common Name (eg, your name or your servers hostname) [Common Self Signed CA]:
 ```
 
 **~/.ssh $ ls -l**
 ```
--rw-------  1 ubuntu ubuntu 3243 Aug  5 17:01 id_rsa
--rw-rw-r--  1 ubuntu ubuntu 1651 Aug 10 10:39 request.csr
+-rw-rw-r-- 1 ubuntu ubuntu    1262 Aug 10 16:02 cloud9-terraform.conf
+-rw-rw-r-- 1 ubuntu ubuntu    1090 Aug 10 16:07 cloud9-terraform.csr
+-rw------- 1 ubuntu ubuntu    1766 Aug 10 15:48 cloud9-terraform.key
 ```
 
 ## Create a .CRT File
 
-**~/.ssh $ openssl x509 -req -days 365 -in request.csr -signkey id_rsa -out certificate.crt**
+
+**~/.ssh $ openssl x509 -req -days 3650 -extensions v3_ca -set_serial 1 -in cloud9-terraform.csr -signkey cloud9-terraform.key -out cloud9-terraform.crt -extfile cloud9-terraform.conf**
 ```
 Signature ok
 subject=C = AU, ST = Some-State, O = Internet Widgits Pty Ltd
