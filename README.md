@@ -2,7 +2,8 @@
 
 ## Create a .key File (RSA Key)
 
-> ~/.ssh $ openssl genrsa -aes256 -out cloud9-terraform.key 2048
+> **~/.ssh $ openssl genrsa -aes256 -out cloud9-terraform.key 2048** \
+> **_Remember Pass Pharase !!!_**
 ```
 Generating RSA private key, 2048 bit long modulus (2 primes)
 ....+++++
@@ -12,14 +13,14 @@ Enter pass phrase for cloud9-terraform.key:
 Verifying - Enter pass phrase for cloud9-terraform.key:
 ```
 
-> ~/.ssh $ ls -l
+> **~/.ssh $ ls -l**
 ```
 -rw------- 1 ubuntu ubuntu    1766 Aug 10 15:48 cloud9-terraform.key
 ```
 
 ## Create a .conf File
 
-> ~/.ssh $ vi cloud9-terraform.conf
+> **~/.ssh $ vi cloud9-terraform.conf**
 ```
 [ req ]
 default_bits                    = 2048
@@ -55,7 +56,7 @@ commonName_default              = Common Self Signed CA
 commonName_max                  = 64 
 ```
 
-> ~/.ssh $ ls -l
+> **~/.ssh $ ls -l**
 ```
 -rw-rw-r-- 1 ubuntu ubuntu    1262 Aug 10 16:02 cloud9-terraform.conf
 -rw------- 1 ubuntu ubuntu    1766 Aug 10 15:48 cloud9-terraform.key
@@ -63,7 +64,8 @@ commonName_max                  = 64
 
 ## Create a .CSR File
 
-> ~/.ssh $ openssl req -new -key cloud9-terraform.key -out cloud9-terraform.csr -config cloud9-terraform.conf
+> **~/.ssh $ openssl req -new -key cloud9-terraform.key -out cloud9-terraform.csr -config cloud9-terraform.conf** \
+> **_Remember Pass Pharase !!!_**
 ```
 Enter pass phrase for cloud9-terraform.key:
 You are about to be asked to enter information that will be incorporated
@@ -78,7 +80,7 @@ Organization Name (eg, company) [Organization]:
 Common Name (eg, your name or your servers hostname) [Common Self Signed CA]:
 ```
 
-> ~/.ssh $ ls -l
+> **~/.ssh $ ls -l**
 ```
 -rw-rw-r-- 1 ubuntu ubuntu    1262 Aug 10 16:02 cloud9-terraform.conf
 -rw-rw-r-- 1 ubuntu ubuntu    1090 Aug 10 16:07 cloud9-terraform.csr
@@ -92,6 +94,7 @@ Common Name (eg, your name or your servers hostname) [Common Self Signed CA]:
 > -signkey cloud9-terraform.key \
 > -out cloud9-terraform.crt \
 > -extfile cloud9-terraform.conf </pre>
+> **_Remember Pass Pharase !!!_**
 
 ```
 Signature ok
@@ -100,7 +103,7 @@ Getting Private key
 Enter pass phrase for cloud9-terraform.key:
 ```
 
-**~/.ssh $ ls -l**
+> **~/.ssh $ ls -l**
 ```
 -rw-rw-r-- 1 ubuntu ubuntu    1262 Aug 10 16:02 cloud9-terraform.conf
 -rw-rw-r-- 1 ubuntu ubuntu    1220 Aug 10 16:33 cloud9-terraform.crt
