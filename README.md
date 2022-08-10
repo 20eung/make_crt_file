@@ -1,6 +1,6 @@
-# make_crt_file
+# Make a CRT File
 
-## Create .CSR file
+## Create a .CSR File
 
 **~/.ssh $ ls -l**
 ```
