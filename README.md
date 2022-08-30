@@ -3,7 +3,8 @@
 ## Create a .key File (RSA Key)
 
 > **~/.ssh $ openssl genrsa -aes256 -out cloud9-terraform.key 2048** \
-> **_Remember Pass Pharase !!!_**
+> **_Remember Pass Pharase !!!_** \
+> **-aes256을 생략하면 패스워드없이 키파일 생성 가능**
 ```
 Generating RSA private key, 2048 bit long modulus (2 primes)
 ....+++++
