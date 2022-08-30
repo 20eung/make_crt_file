@@ -24,7 +24,7 @@ Verifying - Enter pass phrase for cloud9-terraform.key:
 ```
 [ req ]
 default_bits                    = 2048
-default_md                      = sha1
+default_md                      = sha256
 default_keyfile                 = cloud9-terraform.key
 distinguished_name              = req_distinguished_name
 extensions                      = v3_ca
@@ -41,6 +41,12 @@ countryName                     = Country Name (2 letter code)
 countryName_default             = KR
 countryName_min                 = 2
 countryName_max                 = 2
+
+stateOrProvinceName             = State or Province Name (full name)
+stateOrProvinceName_default     = State
+
+localityName                    = Locality Name (eg, city)
+localityName_default            = City
 
 # 회사명 입력
 organizationName                = Organization Name (eg, company)
