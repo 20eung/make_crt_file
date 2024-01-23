@@ -1,5 +1,45 @@
 # Make a CRT File
 
+## Windows User: Install OpenSSL-Win64
+```cmd
+C:\>choco install openssl
+Chocolatey v2.2.2
+Installing the following packages:
+openssl
+By installing, you accept licenses for the packages.
+Progress: Downloading openssl 3.2.0... 100%
+
+openssl v3.2.0 [Approved]
+openssl package files install completed. Performing other installation steps.
+The package openssl wants to run 'chocolateyinstall.ps1'.
+Note: If you don't run this script, the installation will fail.
+Note: To confirm automatically next time, use '-y' or consider:
+choco feature enable -n allowGlobalConfirmation
+Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): A
+
+Downloading openssl 64 bit
+  from 'https://slproweb.com/download/Win64OpenSSL-3_2_0.exe'
+Progress: 100% - Completed download of D:\Temp\chocolatey\openssl\3.2.0\Win64OpenSSL-3_2_0.exe (199.92 MB).
+Download of Win64OpenSSL-3_2_0.exe (199.92 MB) completed.
+Hashes match.
+Installing openssl...
+openssl has been installed.
+WARNING: No registry key found based on  'OpenSSL-Win'
+PATH environment variable does not have C:\Program Files\OpenSSL-Win64\bin in it. Adding...
+WARNING: OPENSSL_CONF has been set to C:\Program Files\OpenSSL-Win64\bin\openssl.cfg
+  openssl can be automatically uninstalled.
+Environment Vars (like PATH) have changed. Close/reopen your shell to
+ see the changes (or in powershell/cmd.exe just type `refreshenv`).
+ The install of openssl was successful.
+  Software installed to 'C:\Program Files\OpenSSL-Win64\'
+
+Chocolatey installed 1/1 packages.
+ See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
+
+C:\>refreshenv
+Refreshing environment variables from registry for cmd.exe. Please wait...Finished..
+```
+
 ## Create a .key File (RSA Key)
 
 > **~/.ssh $ openssl genrsa -aes256 -out cloud9-terraform.key 2048** \
