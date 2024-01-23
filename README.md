@@ -1,6 +1,10 @@
 # Make a CRT File
 
-## Windows User: Install OpenSSL-Win64
+## Windows User: 
+
+### Install Chocolatey: [https://www.liquidweb.com/kb/how-to-install-chocolatey-on-windows/](https://www.liquidweb.com/kb/how-to-install-chocolatey-on-windows/)
+
+### Install OpenSSL-Win64
 ```cmd
 C:\>choco install openssl
 Chocolatey v2.2.2
